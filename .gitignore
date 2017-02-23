@@ -1,0 +1,11 @@
+###############################################################################
+# .gitignore
+#
+# Files and paths that git should ignore.
+#
+# https://git-scm.com/docs/gitignore
+###############################################################################
+
+# Ignore npm packages directory.
+# https://docs.npmjs.com/files/folders
+node_modules

@@ -105,11 +105,17 @@ add_action( 'widgets_init', 'wordpress_theme_boilerplate_widgets_init' );
  * Enqueue scripts and styles.
  */
 function wordpress_theme_boilerplate_scripts() {
-	wp_enqueue_style( 'wordpress-theme-boilerplate-style', get_stylesheet_uri() );
+	// Disable enqueueing of default style.css.
+	//
+	// ./style.css is superceded by ./css/style.css.
+	// wp_enqueue_style( 'wordpress-theme-boilerplate-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'wordpress-theme-boilerplate-style', get_template_directory_uri() . '/css/style.css', array(), wp_get_theme()->get( 'Version' ), 'all' );
 
-	wp_enqueue_script( 'wordpress-theme-boilerplate-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
+	wp_enqueue_script( 'wordpress-theme-boilerplate-navigation', get_template_directory_uri() . '/js/navigation.js', array(), wp_get_theme()->get( 'Version' ), true );
 
-	wp_enqueue_script( 'wordpress-theme-boilerplate-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+	wp_enqueue_script( 'wordpress-theme-boilerplate-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), wp_get_theme()->get( 'Version' ), true );
+
+	wp_enqueue_script( 'wordpress-theme-javascript', get_template_directory_uri() . '/js/app.min.js', array(), wp_get_theme()->get( 'Version' ), true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );

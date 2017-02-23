@@ -1,0 +1,18 @@
+###############################################################################
+# .sass-lint.yml
+#
+# Configuration for sass-lint.
+#
+# https://github.com/sasstools/sass-lint
+###############################################################################
+
+# Require leading zeros.
+#
+# Prefer `0.5em` over `.5em`.
+#
+# https://github.com/brigade/scss-lint/blob/master/lib/scss_lint/linter/README.md#leadingzero
+rules:
+  leading-zero:
+    - 1
+    - include: true
+
