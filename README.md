@@ -1,4 +1,13 @@
-[![Build Status](https://travis-ci.org/Automattic/_s.svg?branch=master)](https://travis-ci.org/Automattic/_s)
+# WordPress Theme Boilerplate
+
+A fork of [underscores](http://underscores.me) with Gulp and Bootstrap. Additional changes:
+
+- Use npm (package.json) for front-end dependencies.
+- Add gulpfile.js with tasks for compiling assets.
+- Enqueue files with the theme version and add image helper for better
+  browser cache-busting.
+  
+## Original _s README.md
 
 _s
 ===
