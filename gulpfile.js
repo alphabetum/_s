@@ -77,14 +77,14 @@ var postcssPlugins = [
 ///////////////////////////////////////////////////////////////////////////////
 
 var cssSourceFiles = [
-  './sass/**/*.scss',
+  './src/sass/**/*.scss',
   './node_modules/owl.carousel/dist/assets/owl.carousel.min.css',
   './node_modules/owl.carousel/dist/assets/owl.theme.default.min.css',
   './node_modules/tether/dist/css/tether.min.css'
 ];
 
 var javascriptSourceFiles = [
-  './js/src/*.js',
+  './src/js/*.js',
 ];
 
 var javascriptVendorSourceFiles = [
