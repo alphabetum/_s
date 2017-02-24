@@ -2,10 +2,36 @@
 
 A fork of [underscores](http://underscores.me) with Gulp and Bootstrap. Additional changes:
 
-- Use npm (package.json) for front-end dependencies.
+- Use Yard / npm package management.
 - Add gulpfile.js with tasks for compiling assets.
 - Enqueue files with the theme version and add image helper for better
   browser cache-busting.
+  
+Sass and JavaScript source files are located in the [`src`](./src) directory.
+
+## Gulp Tasks
+
+[`gulpfile.js`](./gulpfile.js)
+
+### `gulp`
+
+Compile JavaScript and Sass for production.
+
+### `gulp sass`
+
+Compile sass / scss files.
+
+### `gulp sass-dev`
+
+Compile sass / scss files and include sourcemaps.
+
+### `gulp js`
+
+Compile JavaScript source files.
+
+### `gulp watch`
+
+Recompile for development on file changes events.
   
 ## Original _s README.md
 
