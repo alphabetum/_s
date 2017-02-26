@@ -37,7 +37,7 @@ Recompile for development on file changes events.
 
 - [WordPress Theme Developer Handbook](https://developer.wordpress.org/themes/)
 
-## Original _s README.md
+## Original \_s README.md
 
 _s
 ===
