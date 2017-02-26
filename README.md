@@ -32,7 +32,11 @@ Compile JavaScript source files.
 ### `gulp watch`
 
 Recompile for development on file changes events.
-  
+
+## Resources
+
+- [WordPress Theme Developer Handbook](https://developer.wordpress.org/themes/)
+
 ## Original _s README.md
 
 _s
