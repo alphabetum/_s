@@ -107,7 +107,7 @@ gulp.task('sass', function() {
     .pipe(sass({outputStyle: 'compressed'}))
     .pipe(postcss(postcssPlugins))
     .pipe(concat('style.css'))
-    .pipe(gulp.dest('./css/'))
+    .pipe(gulp.dest('./assets/css/'))
     .pipe(rtlcss())                     // Convert to RTL
     .pipe(rename({ basename: 'rtl' }))  // Rename to rtl.css
     .pipe(gulp.dest('./'));             // Output RTL stylesheets (rtl.css)
@@ -126,7 +126,7 @@ gulp.task('sass-dev', function () {
     .pipe(postcss(postcssPlugins))
     .pipe(concat('style.css'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./css/'));
+    .pipe(gulp.dest('./assets/css/'));
 });
 
 // js /////////////////////////////////////////////////////////////////////////
@@ -140,7 +140,7 @@ gulp.task('js', function() {
     .pipe(concat('app.js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
-    .pipe(gulp.dest('./js'));
+    .pipe(gulp.dest('./assets/js'));
 });
 
 // watch //////////////////////////////////////////////////////////////////////
