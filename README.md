@@ -36,6 +36,7 @@ Recompile for development on file changes events.
 ## Resources
 
 - [WordPress Theme Developer Handbook](https://developer.wordpress.org/themes/)
+- [WordPress Default Themes](https://core.trac.wordpress.org/browser/trunk/src/wp-content/themes?order=name)
 
 ## Original \_s README.md
 
