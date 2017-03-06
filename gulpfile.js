@@ -37,7 +37,7 @@ var onError = function( err ) {
 
 // PostCSS Configuration. Source:
 // https://github.com/twbs/bootstrap/blob/eb2e1102be0f4641ee3e5c4e7853360d5a04e3d8/grunt/postcss.js
-var postcssPlugins = [
+var postcssConfig = [
   postcssflexbugsfixes(),
   autoprefixer({
     browsers: [
@@ -76,18 +76,18 @@ var postcssPlugins = [
 // Source Files
 ///////////////////////////////////////////////////////////////////////////////
 
-var cssSourceFiles = [
+var stylesheetPaths = [
   './src/sass/**/*.scss',
   './node_modules/owl.carousel/dist/assets/owl.carousel.min.css',
   './node_modules/owl.carousel/dist/assets/owl.theme.default.min.css',
   './node_modules/tether/dist/css/tether.min.css'
 ];
 
-var javascriptSourceFiles = [
+var javascriptPaths = [
   './src/js/*.js',
 ];
 
-var javascriptVendorSourceFiles = [
+var javascriptVendorPaths = [
   './node_modules/jquery/dist/jquery.min.js',
   './node_modules/owl.carousel/dist/owl.carousel.min.js',
   './node_modules/tether/dist/js/tether.min.js',
@@ -102,10 +102,10 @@ var javascriptVendorSourceFiles = [
 //
 // Compile sass / scss files.
 gulp.task('sass', function() {
-  return gulp.src(cssSourceFiles)
+  return gulp.src(stylesheetPaths)
     .pipe(plumber({ errorHandler: onError }))
     .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(postcss(postcssPlugins))
+    .pipe(postcss(postcssConfig))
     .pipe(concat('style.css'))
     .pipe(gulp.dest('./assets/css/'))
     .pipe(rtlcss())                     // Convert to RTL
@@ -119,11 +119,11 @@ gulp.task('sass', function() {
 gulp.task('sass-dev', function () {
   var sourcemaps = require('gulp-sourcemaps');
 
-  return gulp.src(cssSourceFiles)
+  return gulp.src(stylesheetPaths)
     .pipe(plumber({ errorHandler: onError }))
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'expanded'}))
-    .pipe(postcss(postcssPlugins))
+    .pipe(postcss(postcssConfig))
     .pipe(concat('style.css'))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./assets/css/'));
@@ -133,10 +133,10 @@ gulp.task('sass-dev', function () {
 //
 // Compile JavaScript files.
 gulp.task('js', function() {
-  return gulp.src(javascriptSourceFiles)
+  return gulp.src(javascriptPaths)
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(addsrc(javascriptVendorSourceFiles))
+    .pipe(addsrc(javascriptVendorPaths))
     .pipe(concat('app.js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
@@ -147,8 +147,8 @@ gulp.task('js', function() {
 //
 // Recompile for development on file changes events.
 gulp.task('watch', ['sass-dev', 'js'], function() {
-  gulp.watch(cssSourceFiles[0], ['sass-dev']);
-  gulp.watch(javascriptSourceFiles[0], ['js']);
+  gulp.watch(stylesheetPaths[0], ['sass-dev']);
+  gulp.watch(javascriptPaths[0], ['js']);
 });
 
 // default ////////////////////////////////////////////////////////////////////
