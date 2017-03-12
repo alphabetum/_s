@@ -4,8 +4,6 @@
 // Primary JavaScript source file..
 ///////////////////////////////////////////////////////////////////////////////
 
-(function($){
-	$(document).ready(function(){
-		// --
-	});
-})(jQuery);
+$(document).ready(function(){
+	// --
+});
