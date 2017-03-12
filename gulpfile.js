@@ -21,7 +21,6 @@ var gulp                  = require('gulp'),
     jshint                = require('gulp-jshint'),
     plumber               = require('gulp-plumber'),
     postcss               = require('gulp-postcss'),
-    postcssflexbugsfixes  = require('postcss-flexbugs-fixes'),
     rename                = require('gulp-rename'),
     rtlcss                = require('gulp-rtlcss'),
     sass                  = require('gulp-sass'),
@@ -35,40 +34,9 @@ var onError = function( err ) {
 };
 
 
-// PostCSS Configuration. Source:
-// https://github.com/twbs/bootstrap/blob/eb2e1102be0f4641ee3e5c4e7853360d5a04e3d8/grunt/postcss.js
 var postcssConfig = [
-  postcssflexbugsfixes(),
   autoprefixer({
-    browsers: [
-      //
-      // Official browser support policy:
-      // https://v4-alpha.getbootstrap.com/getting-started/browsers-devices/#supported-browsers
-      //
-      'Chrome >= 35', // Exact version number here is kinda arbitrary
-      // Rather than using Autoprefixer's native "Firefox ESR" version specifier string,
-      // we deliberately hardcode the number. This is to avoid unwittingly severely breaking the previous ESR in the event that:
-      // (a) we happen to ship a new Bootstrap release soon after the release of a new ESR,
-      //     such that folks haven't yet had a reasonable amount of time to upgrade; and
-      // (b) the new ESR has unprefixed CSS properties/values whose absence would severely break webpages
-      //     (e.g. `box-sizing`, as opposed to `background: linear-gradient(...)`).
-      //     Since they've been unprefixed, Autoprefixer will stop prefixing them,
-      //     thus causing them to not work in the previous ESR (where the prefixes were required).
-      'Firefox >= 38', // Current Firefox Extended Support Release (ESR); https://www.mozilla.org/en-US/firefox/organizations/faq/
-      // Note: Edge versions in Autoprefixer & Can I Use refer to the EdgeHTML rendering engine version,
-      // NOT the Edge app version shown in Edge's "About" screen.
-      // For example, at the time of writing, Edge 20 on an up-to-date system uses EdgeHTML 12.
-      // See also https://github.com/Fyrd/caniuse/issues/1928
-      'Edge >= 12',
-      'Explorer >= 10',
-      // Out of leniency, we prefix these 1 version further back than the official policy.
-      'iOS >= 8',
-      'Safari >= 8',
-      // The following remain NOT officially supported, but we're lenient and include their prefixes to avoid severely breaking in them.
-      'Android 2.3',
-      'Android >= 4',
-      'Opera >= 12'
-    ]
+    browsers: ['last 2 versions', 'ie >= 9']
   })
 ];
 
@@ -77,21 +45,29 @@ var postcssConfig = [
 ///////////////////////////////////////////////////////////////////////////////
 
 var stylesheetPaths = [
-  './src/sass/**/*.scss',
+  './src/sass/style.scss'
+];
+
+var sassPaths = [
+  './node_modules/normalize.scss/sass',
+  './node_modules/foundation-sites/scss',
+  './node_modules/motion-ui/src'
+];
+
+var stylesheetVendorPaths = [
   './node_modules/owl.carousel/dist/assets/owl.carousel.min.css',
-  './node_modules/owl.carousel/dist/assets/owl.theme.default.min.css',
-  './node_modules/tether/dist/css/tether.min.css'
+  './node_modules/owl.carousel/dist/assets/owl.theme.default.min.css'
 ];
 
 var javascriptPaths = [
-  './src/js/*.js',
+  './src/js/*.js'
 ];
 
 var javascriptVendorPaths = [
   './node_modules/jquery/dist/jquery.min.js',
   './node_modules/owl.carousel/dist/owl.carousel.min.js',
-  './node_modules/tether/dist/js/tether.min.js',
-  './node_modules/bootstrap/dist/js/bootstrap.min.js'
+  './node_modules/what-input/dist/what-input.js',
+  './node_modules/foundation-sites/dist/js/foundation.js'
 ];
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -104,7 +80,10 @@ var javascriptVendorPaths = [
 gulp.task('sass', function() {
   return gulp.src(stylesheetPaths)
     .pipe(plumber({ errorHandler: onError }))
-    .pipe(sass({outputStyle: 'compressed'}))
+    .pipe(sass({
+      includePaths: sassPaths,
+      outputStyle: 'compressed'
+    }).on('error', sass.logError))
     .pipe(postcss(postcssConfig))
     .pipe(concat('style.css'))
     .pipe(gulp.dest('./assets/css/'))
@@ -117,12 +96,13 @@ gulp.task('sass', function() {
 //
 // Compile sass / scss files and include sourcemaps.
 gulp.task('sass-dev', function () {
-  var sourcemaps = require('gulp-sourcemaps');
-
   return gulp.src(stylesheetPaths)
     .pipe(plumber({ errorHandler: onError }))
     .pipe(sourcemaps.init())
-    .pipe(sass({outputStyle: 'expanded'}))
+    .pipe(sass({
+      includePaths: sassPaths,
+      outputStyle: 'expanded'
+    }).on('error', sass.logError))
     .pipe(postcss(postcssConfig))
     .pipe(concat('style.css'))
     .pipe(sourcemaps.write())
@@ -136,7 +116,7 @@ gulp.task('js', function() {
   return gulp.src(javascriptPaths)
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(addsrc(javascriptVendorPaths))
+    .pipe(addsrc.prepend(javascriptVendorPaths))
     .pipe(concat('app.js'))
     .pipe(rename({suffix: '.min'}))
     .pipe(uglify())
