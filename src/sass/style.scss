@@ -5,6 +5,46 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
+// Config Variables
+///////////////////////////////////////////////////////////////////////////////
+
+// $compiled-css-id
+//
+// A unique string generated each time the files are compiled.
+$compiled-css-id: unique-id();
+
+// $assets-path
+//
+// The path to the 'assets' directory.
+$assets-path: '../';
+
+// $images-path
+//
+// The path to the 'assets/images' directory.
+$images-path: $assets-path + 'images/';
+
+///////////////////////////////////////////////////////////////////////////////
+// Functions
+///////////////////////////////////////////////////////////////////////////////
+
+// image-url()
+//
+// Accepts a filename of an image in the 'assets/images' directory and returns
+// a `url()` value with the `$compiled-css-id` appended as part of a query
+// string.
+//
+// Example:
+//   scss (input):
+//     background-image: image-url('example.jpg');
+//   css (output):
+//     background-image: url(../images/example.jpg?v=ubaf6c7ed);
+@function image-url($image-filename) {
+  $image-path: $images-path + $image-filename;
+  $versioned-image-path: $image-path + '?v=' + $compiled-css-id;
+  @return url($versioned-image-path);
+}
+
+///////////////////////////////////////////////////////////////////////////////
 // Framework Imports
 ///////////////////////////////////////////////////////////////////////////////
 
