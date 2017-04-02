@@ -48,7 +48,36 @@ $images-path: $assets-path + 'images/';
 // Framework Imports
 ///////////////////////////////////////////////////////////////////////////////
 
-// Uncomment to include default underscores styles.
+// Underscores
+//
+// http://underscores.me/
+// https://github.com/automattic/_s
+//
+// NOTE: Uncomment to include default underscores styles.
 // @import 'underscores/style';
+
+// Zurb Foundation
+//
+// Foundation is a responsive front-end framework. Foundation provides a
+// responsive grid and HTML and CSS UI components, templates, and code
+// snippets, including typography, forms, buttons, navigation and other
+// interface components, as well as optional JavaScript extensions. Foundation
+// is maintained by ZURB and is an open source project.
+//
+// http://foundation.zurb.com/
+// http://foundation.zurb.com/sites/docs/
+// https://github.com/zurb/foundation-sites
+// https://en.wikipedia.org/wiki/Foundation_(framework)
+//
+// See Also:
+// https://foundationpress.olefredrik.com/
+// https://github.com/olefredrik/foundationpress
 @import 'foundation/base';
+
+// Font Awesome
+//
+// The iconic font and CSS toolkit
+//
+// http://fontawesome.io/
+// https://github.com/FortAwesome/Font-Awesome
 @import 'font-awesome/font-awesome';
