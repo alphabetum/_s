@@ -54,7 +54,25 @@ $images-path: $assets-path + 'images/';
 // Framework Imports
 ///////////////////////////////////////////////////////////////////////////////
 
-// Uncomment to include default underscores styles.
+// Underscores
+//
+// http://underscores.me/
+// https://github.com/automattic/_s
+//
+// NOTE: Uncomment to include default underscores styles.
 // @import 'underscores/style';
+
+// Bootstrap
+//
+// https://v4-alpha.getbootstrap.com/
+// https://github.com/twbs/bootstrap
+// https://en.wikipedia.org/wiki/Bootstrap_(front-end_framework)
 @import 'bootstrap/bootstrap';
+
+// Font Awesome
+//
+// The iconic font and CSS toolkit
+//
+// http://fontawesome.io/
+// https://github.com/FortAwesome/Font-Awesome
 @import 'font-awesome/font-awesome';
