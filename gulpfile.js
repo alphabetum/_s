@@ -1,15 +1,17 @@
-///////////////////////////////////////////////////////////////////////////////
-// gulpfile.js
-//
-// Asset build tasks with Gulp.js
-//
-// http://gulpjs.com/
-// https://github.com/gulpjs/gulp
-///////////////////////////////////////////////////////////////////////////////
+/**
+ * gulpfile.js
+ *
+ * @summary Asset build tasks with Gulp.js
+ *
+ * @link http://gulpjs.com/
+ * @link https://github.com/gulpjs/gulp
+ */
 
-///////////////////////////////////////////////////////////////////////////////
-// Setup
-///////////////////////////////////////////////////////////////////////////////
+/**
+ * ----------------------------------------------------------------------------
+ * Setup
+ * ----------------------------------------------------------------------------
+ */
 
 require('es6-promise').polyfill();
 
@@ -34,9 +36,13 @@ var onError = function( err ) {
   this.emit('end');
 };
 
-
-// PostCSS Configuration. Source:
-// https://github.com/twbs/bootstrap/blob/eb2e1102be0f4641ee3e5c4e7853360d5a04e3d8/grunt/postcss.js
+/**
+ * ----------------------------------------------------------------------------
+ * PostCSS Configuration.
+ *
+ * @link https://github.com/twbs/bootstrap/blob/eb2e1102be0f4641ee3e5c4e7853360d5a04e3d8/grunt/postcss.js
+ * ----------------------------------------------------------------------------
+ */
 var postcssConfig = [
   postcssflexbugsfixes(),
   autoprefixer({
@@ -72,9 +78,11 @@ var postcssConfig = [
   })
 ];
 
-///////////////////////////////////////////////////////////////////////////////
-// Source Files
-///////////////////////////////////////////////////////////////////////////////
+/**
+ * ----------------------------------------------------------------------------
+ * Source Files
+ * ----------------------------------------------------------------------------
+ */
 
 var stylesheetPaths = [
   './src/sass/**/*.scss',
@@ -94,13 +102,18 @@ var javascriptVendorPaths = [
   './node_modules/bootstrap/dist/js/bootstrap.min.js'
 ];
 
-///////////////////////////////////////////////////////////////////////////////
-// Buld Tasks
-///////////////////////////////////////////////////////////////////////////////
+/**
+ * ----------------------------------------------------------------------------
+ * Build Tasks
+ * ----------------------------------------------------------------------------
+ */
 
-// sass ///////////////////////////////////////////////////////////////////////
-//
-// Compile sass / scss files.
+/**
+ * ----------------------------------------------------------------------------
+ * sass
+ *
+ * Compile sass / scss files.
+ */
 gulp.task('sass', function() {
   return gulp.src(stylesheetPaths)
     .pipe(plumber({ errorHandler: onError }))
@@ -113,9 +126,12 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('./'));             // Output RTL stylesheets (rtl.css)
 });
 
-// sass-dev ///////////////////////////////////////////////////////////////////
-//
-// Compile sass / scss files and include sourcemaps.
+/**
+ * ----------------------------------------------------------------------------
+ * sass-dev
+ *
+ * Compile sass / scss files and include sourcemaps.
+ */
 gulp.task('sass-dev', function () {
   var sourcemaps = require('gulp-sourcemaps');
 
@@ -129,9 +145,12 @@ gulp.task('sass-dev', function () {
     .pipe(gulp.dest('./assets/css/'));
 });
 
-// js /////////////////////////////////////////////////////////////////////////
-//
-// Compile JavaScript files.
+/**
+ * ----------------------------------------------------------------------------
+ * js
+ *
+ * Compile JavaScript files.
+ */
 gulp.task('js', function() {
   return gulp.src(javascriptPaths)
     .pipe(jshint())
@@ -143,15 +162,21 @@ gulp.task('js', function() {
     .pipe(gulp.dest('./assets/js'));
 });
 
-// watch //////////////////////////////////////////////////////////////////////
-//
-// Recompile for development on file changes events.
+/**
+ * ----------------------------------------------------------------------------
+ * watch
+ *
+ * Recompile for development on file changes events.
+ */
 gulp.task('watch', ['sass-dev', 'js'], function() {
   gulp.watch(stylesheetPaths[0], ['sass-dev']);
   gulp.watch(javascriptPaths[0], ['js']);
 });
 
-// default ////////////////////////////////////////////////////////////////////
-//
-// Compile asset files for production.
+/**
+ * ----------------------------------------------------------------------------
+ * [default]
+ *
+ * Compile asset files for production.
+ */
 gulp.task('default', ['sass', 'js']);
