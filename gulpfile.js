@@ -164,13 +164,29 @@ gulp.task('js', function() {
 
 /**
  * ----------------------------------------------------------------------------
+ * js-dev
+ *
+ * Compile JavaScript files for development.
+ */
+gulp.task('js-dev', function() {
+  return gulp.src(javascriptPaths)
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
+    .pipe(addsrc(javascriptVendorPaths))
+    .pipe(concat('app.js'))
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest('./assets/js'));
+});
+
+/**
+ * ----------------------------------------------------------------------------
  * watch
  *
  * Recompile for development on file changes events.
  */
-gulp.task('watch', ['sass-dev', 'js'], function() {
+gulp.task('watch', ['sass-dev', 'js-dev'], function() {
   gulp.watch(stylesheetPaths[0], ['sass-dev']);
-  gulp.watch(javascriptPaths[0], ['js']);
+  gulp.watch(javascriptPaths[0], ['js-dev']);
 });
 
 /**
