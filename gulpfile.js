@@ -133,8 +133,6 @@ gulp.task('sass', function() {
  * Compile sass / scss files and include sourcemaps.
  */
 gulp.task('sass-dev', function () {
-  var sourcemaps = require('gulp-sourcemaps');
-
   return gulp.src(stylesheetPaths)
     .pipe(plumber({ errorHandler: onError })) // Handle errors
     .pipe(sourcemaps.init())                  // Initialize source maps
