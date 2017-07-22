@@ -85,7 +85,7 @@ var postcssConfig = [
  */
 
 var stylesheetPaths = [
-  './src/sass/**/*.scss',
+  './src/sass/app.scss',
   './node_modules/owl.carousel/dist/assets/owl.carousel.min.css',
   './node_modules/owl.carousel/dist/assets/owl.theme.default.min.css',
   './node_modules/tether/dist/css/tether.min.css'
