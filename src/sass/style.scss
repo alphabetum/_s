@@ -1,10 +1,11 @@
+$theme-version: '0.0.0' !default;
 /*
 Theme Name: wordpress-theme-boilerplate
 Theme URI: https://github.com/alphabetum/wordpress-theme-boilerplate
 Author: William Melody
 Author URI: http://www.williammelody.com
 Description: Description
-Version: 0.0.0
+Version: #{$theme-version}
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: wordpress-theme-boilerplate
