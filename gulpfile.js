@@ -119,7 +119,7 @@ gulp.task('sass', function() {
     .pipe(plumber({ errorHandler: onError })) // Handle errors
     .pipe(sass({outputStyle: 'compressed'}))  // Compile sass
     .pipe(postcss(postcssConfig))             // Transform with PostCSS
-    .pipe(concat('style.css'))                // Concat files to one style.css
+    .pipe(concat('app.css'))                  // Concat files to one app.css
     .pipe(gulp.dest('./assets/css/'))         // Write files.
     .pipe(rtlcss())                           // Convert to RTL
     .pipe(rename({ basename: 'rtl' }))        // Rename to rtl.css
@@ -138,7 +138,7 @@ gulp.task('sass-dev', function () {
     .pipe(sourcemaps.init())                  // Initialize source maps
     .pipe(sass({outputStyle: 'expanded'}))    // Compile sass
     .pipe(postcss(postcssConfig))             // Transform with PostCSS
-    .pipe(concat('style.css'))                // Concat files to one style.css
+    .pipe(concat('app.css'))                  // Concat files to one app.css
     .pipe(sourcemaps.write())                 // Write source maps
     .pipe(gulp.dest('./assets/css/'));        // Write files
 });

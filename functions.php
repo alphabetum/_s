@@ -107,9 +107,9 @@ add_action( 'widgets_init', 'wordpress_theme_boilerplate_widgets_init' );
 function wordpress_theme_boilerplate_scripts() {
 	// Disable enqueueing of default style.css.
 	//
-	// ./style.css is superceded by ./css/style.css.
+	// ./style.css is superceded by ./css/app.css.
 	// wp_enqueue_style( 'wordpress-theme-boilerplate-style', get_stylesheet_uri() );
-	wp_enqueue_style( 'wordpress-theme-boilerplate-style', get_template_directory_uri() . '/assets/css/style.css', array(), wp_get_theme()->get( 'Version' ), 'all' );
+	wp_enqueue_style( 'wordpress-theme-boilerplate-style', get_template_directory_uri() . '/assets/css/app.css', array(), wp_get_theme()->get( 'Version' ), 'all' );
 
 	wp_enqueue_script( 'wordpress-theme-boilerplate-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), wp_get_theme()->get( 'Version' ), true );
 
