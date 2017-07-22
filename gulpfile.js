@@ -145,6 +145,20 @@ gulp.task('sass-dev', function () {
 
 /**
  * ----------------------------------------------------------------------------
+ * sass-theme-style-scss
+ *
+ * Compile style.scss.
+ */
+gulp.task('sass-theme-style-scss', function() {
+  return gulp.src('./src/sass/style.scss')
+    .pipe(plumber({ errorHandler: onError })) // Handle errors
+    .pipe(sass())                             // Compile sass
+    .pipe(concat('style.css'))                // Concat files to one app.css
+    .pipe(gulp.dest('./'));                   // Write files.
+});
+
+/**
+ * ----------------------------------------------------------------------------
  * js
  *
  * Compile JavaScript files.
@@ -193,4 +207,4 @@ gulp.task('watch', ['sass-dev', 'js-dev'], function() {
  *
  * Compile asset files for production.
  */
-gulp.task('default', ['sass', 'js']);
+gulp.task('default', ['sass', 'sass-theme-style-scss', 'js']);
