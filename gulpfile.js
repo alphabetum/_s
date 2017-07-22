@@ -116,14 +116,14 @@ var javascriptVendorPaths = [
  */
 gulp.task('sass', function() {
   return gulp.src(stylesheetPaths)
-    .pipe(plumber({ errorHandler: onError }))
-    .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(postcss(postcssConfig))
-    .pipe(concat('style.css'))
-    .pipe(gulp.dest('./assets/css/'))
-    .pipe(rtlcss())                     // Convert to RTL
-    .pipe(rename({ basename: 'rtl' }))  // Rename to rtl.css
-    .pipe(gulp.dest('./'));             // Output RTL stylesheets (rtl.css)
+    .pipe(plumber({ errorHandler: onError })) // Handle errors
+    .pipe(sass({outputStyle: 'compressed'}))  // Compile sass
+    .pipe(postcss(postcssConfig))             // Transform with PostCSS
+    .pipe(concat('style.css'))                // Concat files to one style.css
+    .pipe(gulp.dest('./assets/css/'))         // Write files.
+    .pipe(rtlcss())                           // Convert to RTL
+    .pipe(rename({ basename: 'rtl' }))        // Rename to rtl.css
+    .pipe(gulp.dest('./'));                   // Output RTL stylesheets (rtl.css)
 });
 
 /**
@@ -136,13 +136,13 @@ gulp.task('sass-dev', function () {
   var sourcemaps = require('gulp-sourcemaps');
 
   return gulp.src(stylesheetPaths)
-    .pipe(plumber({ errorHandler: onError }))
-    .pipe(sourcemaps.init())
-    .pipe(sass({outputStyle: 'expanded'}))
-    .pipe(postcss(postcssConfig))
-    .pipe(concat('style.css'))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./assets/css/'));
+    .pipe(plumber({ errorHandler: onError })) // Handle errors
+    .pipe(sourcemaps.init())                  // Initialize source maps
+    .pipe(sass({outputStyle: 'expanded'}))    // Compile sass
+    .pipe(postcss(postcssConfig))             // Transform with PostCSS
+    .pipe(concat('style.css'))                // Concat files to one style.css
+    .pipe(sourcemaps.write())                 // Write source maps
+    .pipe(gulp.dest('./assets/css/'));        // Write files
 });
 
 /**
@@ -152,14 +152,14 @@ gulp.task('sass-dev', function () {
  * Compile JavaScript files.
  */
 gulp.task('js', function() {
-  return gulp.src(javascriptPaths)
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(addsrc(javascriptVendorPaths))
-    .pipe(concat('app.js'))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(uglify())
-    .pipe(gulp.dest('./assets/js'));
+  return gulp.src(javascriptPaths)        // Add local JavaScript paths
+    .pipe(jshint())                       // Detect errors
+    .pipe(jshint.reporter('default'))     // Report errors
+    .pipe(addsrc(javascriptVendorPaths))  // Add JavaScript vendor paths
+    .pipe(concat('app.js'))               // Concat to single app.js
+    .pipe(rename({suffix: '.min'}))       // Add .min suffix
+    .pipe(uglify())                       // Minify and compress
+    .pipe(gulp.dest('./assets/js'));      // Write files
 });
 
 /**
@@ -169,13 +169,13 @@ gulp.task('js', function() {
  * Compile JavaScript files for development.
  */
 gulp.task('js-dev', function() {
-  return gulp.src(javascriptPaths)
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(addsrc(javascriptVendorPaths))
-    .pipe(concat('app.js'))
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./assets/js'));
+  return gulp.src(javascriptPaths)        // Add local JavaScript paths
+    .pipe(jshint())                       // Detect errors
+    .pipe(jshint.reporter('default'))     // Print errors
+    .pipe(addsrc(javascriptVendorPaths))  // Add JavaScript vendor paths
+    .pipe(concat('app.js'))               // Concat to single app.js
+    .pipe(rename({suffix: '.min'}))       // Add .min suffix
+    .pipe(gulp.dest('./assets/js'));      // Write files
 });
 
 /**
