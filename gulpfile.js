@@ -19,7 +19,9 @@ var gulp                  = require('gulp'),
     addsrc                = require('gulp-add-src'),
     autoprefixer          = require('autoprefixer'),
     concat                = require('gulp-concat'),
+    fs                    = require('fs'),
     gutil                 = require('gulp-util'),
+    insert                = require('gulp-insert'),
     jshint                = require('gulp-jshint'),
     plumber               = require('gulp-plumber'),
     postcss               = require('gulp-postcss'),
@@ -35,6 +37,15 @@ var onError = function( err ) {
   gutil.beep();
   this.emit('end');
 };
+
+/**
+ * ----------------------------------------------------------------------------
+ * Theme Version.
+ * ----------------------------------------------------------------------------
+ */
+var packages = JSON.parse(fs.readFileSync('./package.json'));
+var themeVersion = packages.version;
+var sassThemeVersion = '$theme-version: ' + themeVersion + ';\n';
 
 /**
  * ----------------------------------------------------------------------------
@@ -117,6 +128,7 @@ var javascriptVendorPaths = [
 gulp.task('sass', function() {
   return gulp.src(stylesheetPaths)
     .pipe(plumber({ errorHandler: onError })) // Handle errors
+    .pipe(insert.prepend(sassThemeVersion))   // Add version
     .pipe(sass({outputStyle: 'compressed'}))  // Compile sass
     .pipe(postcss(postcssConfig))             // Transform with PostCSS
     .pipe(concat('app.css'))                  // Concat files to one app.css
@@ -135,6 +147,7 @@ gulp.task('sass', function() {
 gulp.task('sass-dev', function () {
   return gulp.src(stylesheetPaths)
     .pipe(plumber({ errorHandler: onError })) // Handle errors
+    .pipe(insert.prepend(sassThemeVersion))   // Add version
     .pipe(sourcemaps.init())                  // Initialize source maps
     .pipe(sass({outputStyle: 'expanded'}))    // Compile sass
     .pipe(postcss(postcssConfig))             // Transform with PostCSS
@@ -152,6 +165,7 @@ gulp.task('sass-dev', function () {
 gulp.task('sass-theme-style-scss', function() {
   return gulp.src('./src/sass/style.scss')
     .pipe(plumber({ errorHandler: onError })) // Handle errors
+    .pipe(insert.prepend(sassThemeVersion))   // Add version
     .pipe(sass())                             // Compile sass
     .pipe(concat('style.css'))                // Concat files to one app.css
     .pipe(gulp.dest('./'));                   // Write files.
