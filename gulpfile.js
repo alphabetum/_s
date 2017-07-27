@@ -45,7 +45,7 @@ var onError = function( err ) {
  */
 var packages = JSON.parse(fs.readFileSync('./package.json'));
 var themeVersion = packages.version;
-var sassThemeVersion = '$theme-version: ' + themeVersion + ';\n';
+var sassThemeVersion = '$theme-version: \'' + themeVersion + '\';\n';
 
 /**
  * ----------------------------------------------------------------------------
