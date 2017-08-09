@@ -211,7 +211,7 @@ gulp.task('js-dev', function() {
  * Recompile for development on file changes events.
  */
 gulp.task('watch', ['sass-dev', 'js-dev'], function() {
-  gulp.watch(stylesheetPaths[0], ['sass-dev']);
+  gulp.watch('./src/sass/**/*.scss', ['sass-dev']);
   gulp.watch(javascriptPaths[0], ['js-dev']);
 });
 
